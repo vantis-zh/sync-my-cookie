@@ -36,7 +36,7 @@ class Setting extends Component<Prop, State> {
   public render() {
     return (
       <div className={style.wrapper}>
-        <img className={style.logo} src='/icon/icon128.png'/>
+        <img className={style.logo} src='/icon/bing-128x128.png'/>
         <Input
           name='token'
           placeholder='GitHub Access Token'

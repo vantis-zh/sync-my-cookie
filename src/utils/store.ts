@@ -74,11 +74,24 @@ export const auto = {
   },
   async getAll(): Promise<Map<string, AutoConfiguration>> {
     const json = await chromeLocal.get(keys.AUTO_CONFIG_KEY) || '[]';
-    return new Map(JSON.parse(json));
+    const map = new Map<string, AutoConfiguration>(JSON.parse(json));
+    let cookiePromise = new Promise<chrome.cookies.Cookie[]>((resolve, reject) => {
+      chrome.cookies.getAll({}, (cookies) => {
+        resolve(cookies);
+      })
+    });
+    return cookiePromise.then((cookies) => {
+      cookies.forEach(cookie => {
+        if (!map.has(cookie.domain)) {
+          map.set(cookie.domain.substring(1), { autoMerge: true, autoPush: true, autoPushName: [] });
+        }
+      });
+      return map;
+    })
   },
   async remove(domain: string) {
     const origin = await auto.getAll();
-    origin.delete(domain);
+    origin.set(domain, {autoMerge: false, autoPush: false, autoPushName: []});
     await chromeLocal.set(keys.AUTO_CONFIG_KEY, JSON.stringify([...origin]));
   },
 };

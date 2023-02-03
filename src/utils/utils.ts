@@ -2,10 +2,9 @@ import { parse } from 'url';
 
 export function getDomain(url: string): string {
   const hostname =  parse(url).hostname || '';
-  const lastDot = hostname.lastIndexOf('.');
-  const nextDot = hostname.lastIndexOf('.', lastDot - 1);
-  if (nextDot !== -1) {
-    return hostname.substr(nextDot + 1);
+  const lastSlash = hostname.lastIndexOf('/');
+   if (lastSlash !== -1) {
+    return hostname.substring(0, lastSlash);
   } else {
     return hostname;
   }

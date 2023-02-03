@@ -52,8 +52,8 @@ chrome.cookies.onChanged.addListener(_.debounce(async () => {
         rules = config.autoPushName;
       }
 
-      const oldCookiesFiltered = oldCookies.filter((cookie) => rules.includes(cookie.name as string));
-      const newCookiesFiltered = newCookies.filter((cookie) => rules.includes(cookie.name as string));
+      const oldCookiesFiltered = oldCookies.filter((cookie) => config.autoPushName.length === 0 || rules.includes(cookie.name as string));
+      const newCookiesFiltered = newCookies.filter((cookie) => config.autoPushName.length === 0 || rules.includes(cookie.name as string));
       // 数量测试，两者的数量必须相同
       console.log('数量测试，两者的数量必须相同');
       console.log(`Name过滤后，旧的共：${oldCookiesFiltered.length}个 新的共：${newCookiesFiltered.length}个`);
