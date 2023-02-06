@@ -1,7 +1,7 @@
 {
-  "name": "sync-my-cookie",
+  "name": "sync-all-my-cookies",
   "version": "2.0.0",
-  "description": "A Chrome extension to synchronize cookies.",
+  "description": "A Chrome extension to synchronize all cookies.",
   "main": "index.js",
   "repository": "git@github.com:Andiedie/sync-my-cookie.git",
   "author": "Andie <zchangan@163.com>",

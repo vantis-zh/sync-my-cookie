@@ -82,8 +82,12 @@ export const auto = {
     });
     return cookiePromise.then((cookies) => {
       cookies.forEach(cookie => {
-        if (!map.has(cookie.domain)) {
-          map.set(cookie.domain.substring(1), { autoMerge: true, autoPush: true, autoPushName: [] });
+        let domain = cookie.domain;
+        if (domain.startsWith(".")) {
+          domain = domain.substring(1);
+        }
+        if (!map.has(domain)) {
+          map.set(domain, { autoMerge: true, autoPush: true, autoPushName: [] });
         }
       });
       return map;
